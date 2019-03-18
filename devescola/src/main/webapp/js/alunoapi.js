@@ -6,7 +6,7 @@
 var alunoApi = {
 
 	/** Host de conexão com o servidor. */
-	host: "http://localhost:9000/aluno",
+	host: "http://localhost:9000/escola/aluno",
 
 
 	/** Aciona o serviço que recupera todos os alunos. */

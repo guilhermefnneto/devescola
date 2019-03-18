@@ -12,10 +12,10 @@
     </parent>
 
   	<groupId>com.kroton.unopar</groupId>
-  	<artifactId>escola</artifactId>
+  	<artifactId>devescola</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
   	
-  	<name>escola</name>
+  	<name>devescola</name>
     <description>Developer Case Kroton Unopar</description>
 
     <properties>
