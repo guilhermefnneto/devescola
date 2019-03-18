@@ -24,14 +24,24 @@ var aluno = function() {
 
 		$.each(alunos, function(i, item) {
 			var $tr = $('<tr>').append(
-				$('<td>').css("text-align","right").text(item.ra),
+				$('<td>').text(item.ra).css("text-align","right"),
 				$('<td>').text(item.nome),
-				$('<td>').css("text-align","center").text(item.sexo),
-				$('<td>').css("text-align","center").text(item.dataNascimento)
+				$('<td>').text(item.sexo).css("text-align","center"),
+				$('<td>').text(item.dataNascimento).css("text-align","center").attr("data-formatter", "dataFormatter")
 			);
 
 			$tbody.append($tr);
 		});
+
+		$tbody.find('td[data-formatter="dataFormatter"]').each(function(i, item) {
+			var $item = $(item);
+			var value = _dataFormatter($item.text());
+			$item.text(value);
+		});
+	}
+
+	function _dataFormatter(value) {
+		return moment(value).format('DD/MM/YYYY');
 	}
 
 };

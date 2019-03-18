@@ -7,16 +7,19 @@
 	</head>
 
 	<body>
-    	<div style="text-align: center;"><h4>ALUNOS</h4></div>
+    	<div style="text-align: center; margin-top: 15px; margin-bottom: 15px;">
+            <img src="../images/logo-alunos.png" alt="ALUNOS" width="70px" height="70px;" style="float: center;">
+            <h3 style="font-weight: bold; float: center;">ALUNOS</h3>
+        </div>
 
-    	<table id="tab-alunos" class="table table-sm" style="height: 100%">
+    	<table id="tab-alunos" class="table table-bordered" style="height: 100%;">
     		
     		<thead>
     			<tr>
-    				<td style="text-align: center;">RA</td>
-    				<td style="text-align: center;">Nome</td>
-    				<td style="text-align: center;">Sexo</td>
-    				<td style="text-align: center;">Data de Nascimento</td>
+    				<th scope="col" style="text-align: center;">RA</th>
+    				<th scope="col" style="text-align: center;">Nome</th>
+    				<th scope="col" style="text-align: center;">Sexo</th>
+    				<th scope="col" style="text-align: center;">Data de Nascimento</th>
     			</tr>
     		</thead>
 
@@ -29,6 +32,7 @@
 
     	<script src="../vendor/jquery/3.3.1/jquery.min.js"></script>
     	<script src="../vendor/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="../vendor/moment/moment.min.js"></script>
 
     	<script src="../js/aluno.js"></script>
     	<script src="../js/alunoapi.js"></script>
