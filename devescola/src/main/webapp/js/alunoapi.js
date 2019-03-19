@@ -40,50 +40,48 @@ var alunoApi = {
 	},
 
 	/** Aciona o serviço que inclui um aluno. */
-	incluirAluno: function incluirAluno(aluno, _processarResposta) {
+	incluirAluno: function incluirAluno(aluno, _processarSucesso, _processarErro) {
 		$.ajax({
 			url: this.host,
 			method: 'POST',
-			data: aluno,
+			contentType: "application/json; charset=utf-8",
+			data: JSON.stringify(aluno),
 			success: function(response) {
-				_processarResposta(response);
+				_processarSucesso(response);
 			},
 			error: function(response) {
-				_processarResposta(response);
+				_processarErro(response);
 			}
 		});
 	},
 
 	/** Aciona o serviço que atualiza os dados do aluno */
-	atualizarAluno: function atualizarAluno(aluno, _processarResposta) {
-		console.log('ra/atualizar: ', ra, aluno);
-
-
+	atualizarAluno: function atualizarAluno(aluno, _processarSucesso, _processarErro) {
 		$.ajax({
 			url: this.host + "/" + aluno.ra,
 			method: 'PUT',
 			contentType: "application/json; charset=utf-8",
-			data: aluno,
+			data: JSON.stringify(aluno),
 			success: function(response) {
-				_processarResposta(response);
+				_processarSucesso(response);
 			},
 			error: function(response) {
-				_processarResposta(response);
+				_processarErro(response);
 			}
 		});
 	},
 
 	/** Aciona o serviço que remove o aluno identificado pelo seu RA. */
-	removerAluno: function removerAluno(ra, _processarResposta) {
+	removerAluno: function removerAluno(ra, _processarSucesso, _processarErro) {
 		$.ajax({
 			url: this.host + "/" + ra,
 			method: 'DELETE',
 			data: null,
 			success: function(response) {
-				_processarResposta(response);
+				_processarSucesso(response);
 			},
 			error: function(response) {
-				_processarResposta(response);
+				_processarErro(response);
 			}
 		});
 	}

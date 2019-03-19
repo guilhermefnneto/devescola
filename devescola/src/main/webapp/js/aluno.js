@@ -23,12 +23,22 @@ var aluno = function() {
 			salvar();
 		});
 
-		alunoApi.obterTodosOsAlunos(preencherTabelaDeAlunos, processarErro);
+		_refreshAlunos();
+	}
+
+
+	/** Atualiza a grid de alunos. */
+	function _refreshAlunos() {
+		$tabAlunos.find('tbody').text('');
+
+		alunoApi.obterTodosOsAlunos(_preencherTabelaDeAlunos, _processarErro);
 	}
 
 
 	/** Preenche a grid que representa os alunos. */
-	function preencherTabelaDeAlunos(alunos) {
+	function _preencherTabelaDeAlunos(alunos) {
+		$modalFormAluno.modal('hide');
+
 		var $tbody = $tabAlunos.find('tbody');
 
 		if (!Array.isArray(alunos)) {
@@ -67,6 +77,8 @@ var aluno = function() {
 			$tbody.append($tr);
 		});
 
+		_processarSucesso();
+
 	}
 
 	/** Formata uma data para a máscara DD/MM/YYYY. */
@@ -87,12 +99,23 @@ var aluno = function() {
 	function editar(ra) {
 		modo = 'edição';
 
-		alunoApi.obterAlunoByRa(ra, preencherFormulario, processarErro);
+		alunoApi.obterAlunoByRa(ra, _preencherFormulario, _processarErro);
 	}
 
 	/** Solicita a remoção de um aluno do quadro de alunos. */
 	function remover(ra) {
-		console.log('remove: ', ra);
+		$.confirm({
+			title: '',
+			content: 'Remover o aluno?',
+			buttons: {
+				Sim: function() {
+					alunoApi.removerAluno(ra, _refreshAlunos, _processarErro);
+				},
+				Nao: function() {
+					
+				}
+			}
+      	});
 	}
 
 
@@ -114,16 +137,16 @@ var aluno = function() {
 		};
 
 		if (modo === 'edição') {
-			alunoApi.atualizarAluno(aluno, _processarGravacaoDoFormulario);
+			alunoApi.atualizarAluno(aluno, _refreshAlunos, _processarErro);
 		} else {
-			alunoApi.incluirAluno(aluno, _processarGravacaoDoFormulario);
+			alunoApi.incluirAluno(aluno, _refreshAlunos, _processarErro);
 		}
 
 	}
 
 
 	/** Preenche o formulário com os dados do aluno passado como argumento. */
-	function preencherFormulario(aluno) {
+	function _preencherFormulario(aluno) {
 		$formAluno.find('input[name="ra"]').val(aluno.ra);
 		$formAluno.find('input[name="nome"]').val(aluno.nome);
 		$formAluno.find('input[name="sexo"][value="'+aluno.sexo+'"]').prop("checked", true);
@@ -133,21 +156,30 @@ var aluno = function() {
 	}
 
 
-	/** Processa a resposta  */
-	function _processarGravacaoDoFormulario(response) {
-		console.log('dados refletidos: ',response);
+	/** Processa o sucesso da operação. Emite uma mensagem. */
+	function _processarSucesso(response) {
+		$.notify({
+			message: 'Sucesso' 
+		},{
+			type: 'success',
+			delay: 2500,
+			onShow: function() {
+				this.css({'width':'auto', 'height':'auto'});
+			}
+		});
 	}
 
-	/** Emite uma mensagem de sucesso. */
-	function processarSucesso(data) {
-		console.log('Sucesso na operação!');
-		console.log('sucesso: ', data);
-	}
-
-	/** Emite uma mensagem de erro. */
-	function processarErro(error) {
-		console.log('Erro na operação!');
-		console.log('erro: ', error);
+	/** Processa o erro da operação. Emite uma mensagem*/
+	function _processarErro(error) {
+		$.notify({
+			message: 'Erro' 
+		},{
+			type: 'danger',
+			delay: 2500,
+			onShow: function() {
+				this.css({'width':'auto', 'height':'auto'});
+			}
+		});
 	}
 
 
