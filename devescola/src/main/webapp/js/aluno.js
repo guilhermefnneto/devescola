@@ -77,7 +77,11 @@ var aluno = function() {
 			$tbody.append($tr);
 		});
 
-		_processarSucesso();
+		if (modo) {
+			_processarSucesso();
+		}
+
+		modo = null;
 
 	}
 
@@ -112,6 +116,8 @@ var aluno = function() {
 					btnClass: 'btn-primary center-block',
 
 					action: function() {
+						modo = 'remoção';
+						
 						alunoApi.removerAluno(ra, _refreshAlunos, _processarErro);
 					}
 				},
