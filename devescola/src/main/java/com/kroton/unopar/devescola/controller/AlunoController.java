@@ -60,7 +60,7 @@ public class AlunoController {
 	 */
 	@GetMapping
 	public ResponseEntity<Iterable<Aluno>> obterTodos() {
-		return ResponseEntity.ok(alunoService.obterTodos());
+		return ResponseEntity.ok(alunoService.obterTodosPorOrdemDeRa());
 	}
 	
 	

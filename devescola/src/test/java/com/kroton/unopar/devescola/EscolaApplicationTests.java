@@ -26,7 +26,7 @@ import com.kroton.unopar.devescola.model.Sexo;
 public class EscolaApplicationTests {
 	
 	
-	private final String host = "http://localhost:9000";
+	private final String host = "http://localhost:9000/escola";
 	
 	
 	/**

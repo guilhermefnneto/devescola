@@ -39,6 +39,15 @@ public class AlunoService {
 	
 	
 	/**
+	 * Recupera todos os alunos do repositório ordenados pelo RA.
+	 * @return Retorna a lista de alunos.
+	 */
+	public Iterable<Aluno> obterTodosPorOrdemDeRa() {
+		return alunoRepository.findAllOrderById();
+	}
+	
+	
+	/**
 	 * Recupera um aluno do repositório.
 	 * @param ra O RA do aluno a ser recuperado.
 	 * @return O aluno encontrado ou null caso contrário.
