@@ -83,7 +83,7 @@ var aluno = function() {
 
 	/** Formata uma data para a máscara DD/MM/YYYY. */
 	function _dataFormatter(value) {
-		return moment(value).format('DD/MM/YYYY');
+		return value ?moment(value).format('DD/MM/YYYY') :"";
 	}
 
 	/** Abre o formulário para o registro de um novo aluno. */
@@ -106,13 +106,21 @@ var aluno = function() {
 	function remover(ra) {
 		$.confirm({
 			title: '',
-			content: 'Remover o aluno?',
+			content: '<div style="text-align: center;">Remover o aluno?</div>',
 			buttons: {
-				Sim: function() {
-					alunoApi.removerAluno(ra, _refreshAlunos, _processarErro);
+				Sim: {
+					btnClass: 'btn-primary center-block',
+
+					action: function() {
+						alunoApi.removerAluno(ra, _refreshAlunos, _processarErro);
+					}
 				},
-				Nao: function() {
+				Nao: {
+					text: 'N&atilde;o',
+					btnClass: 'center-block',
+					action: function() {
 					
+					}
 				}
 			}
       	});
@@ -127,6 +135,10 @@ var aluno = function() {
 
 	/** Salva o aluno editado ou o novo aluno informado. */
 	function salvar() {
+		if (!_validarAluno()) {
+			return ;
+		}
+
 		var metodo = modo === 'edição' ?'PUT' :'POST';
 
 		var aluno = {
@@ -142,6 +154,19 @@ var aluno = function() {
 			alunoApi.incluirAluno(aluno, _refreshAlunos, _processarErro);
 		}
 
+	}
+
+
+	/** Valida a obrigatoriedade dos dados do aluno. */
+	function _validarAluno() {
+		var validated = true;
+
+		if (!$formAluno.find('input[name="nome"]').val()) {
+			_processarErro('O nome precisa ser informado!');
+			validated = false;
+		}
+
+		return validated;
 	}
 
 
@@ -173,7 +198,7 @@ var aluno = function() {
 	/** Processa o erro da operação. Emite uma mensagem*/
 	function _processarErro(error) {
 		$.notify({
-			message: 'Erro' 
+			message: typeof error === 'string' ?error :'Erro' 
 		},{
 			type: 'danger',
 			delay: 2000,
