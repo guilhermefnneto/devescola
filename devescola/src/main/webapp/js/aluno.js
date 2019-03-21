@@ -162,7 +162,8 @@ var aluno = function() {
 			message: 'Sucesso' 
 		},{
 			type: 'success',
-			delay: 2500,
+			delay: 2000,
+			allow_dismiss: false,
 			onShow: function() {
 				this.css({'width':'auto', 'height':'auto'});
 			}
@@ -175,7 +176,8 @@ var aluno = function() {
 			message: 'Erro' 
 		},{
 			type: 'danger',
-			delay: 2500,
+			delay: 2000,
+			allow_dismiss: false,
 			onShow: function() {
 				this.css({'width':'auto', 'height':'auto'});
 			}
